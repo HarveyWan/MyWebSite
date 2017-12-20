@@ -1,0 +1,317 @@
+﻿@model KDMSModel.Menus
+
+@{
+    ViewBag.Title = "菜单录入";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link id="easyuiTheme" href="~/Scripts/easyui/jquery-easyui-theme/bootstrap/easyui.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/layui/layui.all.js"></script>
+<style>
+    body {
+        padding: 0px;
+        background-color: #f3f3f3;
+    }
+</style>
+
+<div class="container body-content" style="width:98%;">
+    <header>
+        <h3 class="demos-title">菜单录入</h3>
+    </header>
+    @*@using (Html.BeginForm("CateAdd", "Home"))
+        {*@
+    <form id="FromCate" method="post" class="form-horizontal">
+        <div style="margin-top:14px;">
+            @*<h4 style="width:60px;display:inline">餐 厅：</h4>
+                <select id="Restaurant" name="Restaurant"></select>*@
+            <input type="hidden" id="RestaurantName" name="RestaurantName" />
+            <input type="hidden" id="RestaurantId" name="RestaurantId" />
+        </div>
+        <div class="table-responsive m-t" style="margin-top:14px;">
+
+            <table id="tbCate" class="table invoice-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>类型</th>
+                        <th>菜名</th>
+                        <th>价格</th>
+                        <th>单位</th>
+                        <th>备注</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Menu.Count; i++)
+                    {
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                @*@Html.DropDownList("selCateType0", ViewBag.MenuList as IEnumerable<SelectListItem>)*@ @*, new { @name = "selCateType" }*@
+                                <select id="selCateType0"></select>
+                                @Html.TextBoxFor(c => c.Menu[i].Type, new { @type = "hidden" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(c => c.Menu[i].Name, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(c => c.Menu[i].Price, new { @class = "form-control", @type = "number" })
+                            </td>
+                            <td>@Html.TextBoxFor(c => c.Menu[i].Unit, new { @class = "form-control" })</td>
+                            <td width="226">
+                                @Html.TextAreaFor(c => c.Menu[i].Remark, new { @class = "form-control", @rows = "1", @cols = "16" })
+                            </td>
+                            <td><a href="javascript:void(0)" class="navbar-link glyphicon glyphicon-remove"></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @*<div>
+                <input type="button" class="btn btn-w-m btn-primary" value="保 存" onclick="submitFrom()" />&nbsp;&nbsp;
+                <input type="button" class="btn btn-w-m btn-primary" value="<返 回" onclick="window.history.go(-1)" />
+            </div>*@
+        <div class="alert alert-warning" style="display:none; margin-top:14px; margin-bottom:10px;padding: 10px;">
+            <strong></strong>
+        </div>
+    </form>
+    @*}*@
+</div>
+
+<script src="~/Scripts/jquery.form.js"></script>
+
+<script type="text/javascript">
+    var keydwonc;
+    var temptr;
+    var temp;
+
+    $(function () {
+        if (getQueryString('rid'))
+            $("#RestaurantId").val(getQueryString('rid'));
+        if (getQueryString('rname')) {
+            var rname = decodeURI(getQueryString('rname'));
+            $("#RestaurantName").val(rname);
+            $(".demos-title").html(rname + " - 菜单录入");
+        }
+
+        //bindRestaurant();
+
+        //$("#Menu_0__Price").keydown(function (e) {
+        //    var eCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+        //})
+        temptr = $("#tbCate tbody").first().html(); //复制行 下面新增行用到
+        temp = $("#tbCate tbody").html();//保存渲染前的模板 
+        $("#tbCate select").combobox({
+            width: 210, height: 34, editable: true,
+            url: '/Restaurants/BindListCatebyType',
+            valueField: 'Id', textField: 'Type',
+            mode: 'remote', hasDownArrow: false,//是否显示下拉箭头
+            onBeforeLoad: function (param) {
+                if (param == null || param.q == null || param.q.replace(/ /g, '') == '') {
+                    var value = $(this).combobox('getValue');
+                    if (value) {// 修改的时候才会出现q为空而value不为空
+                        param.id = value;
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        });//, panelHeight: "auto"limitToList: true
+        $("#tbCate a").remove();//删除第一个删除按钮
+        $('#Menu_0__Price').val("");
+        keydwonc = function (et) {
+            if (event.keyCode == 9) {
+                //$(et).unbind();//取消当前事件
+                var rowNo = $("#tbCate tbody tr").size();               
+                var index = Number($("#tbCate tbody tr td").find('textarea').last().attr("name").match(/\d+/)[0]);
+                $(temptr).appendTo($("#tbCate tbody")).find("a").click(function () {
+                    $(this).parent().parent().remove();//删除整行
+                }).parent().parent().find("select").last().combobox({
+                    width: 210, height: 34, editable: true,
+                    url: '/Restaurants/BindListCatebyType',
+                    valueField: 'Id', textField: 'Type',
+                    mode: 'remote', hasDownArrow: false,//是否显示下拉箭头 limitToList: true//只能选下拉框里的数据
+                    onBeforeLoad: function (param) {
+                        if (param == null || param.q == null || param.q.replace(/ /g, '') == '') {
+                            var value = $(this).combobox('getValue');
+                            if (value) {// 修改的时候才会出现q为空而value不为空
+                                param.id = value;
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                });//加载新行并渲染
+                $(et).parent().parent().nextAll().last().find("td:first").html(rowNo + 1);//新增行自增编号
+                //新行 属性改变
+                $(et).parent().parent().nextAll().last().find("input,select,textarea").each(function (i) {
+                    $(this).val("");
+                    //combobox 属性改变
+                    var attid = $(this).attr("id");
+                    var attname = $(this).attr("name");
+                    var attcomboname = $(this).attr("comboname");
+                    var newindex = index + 1;
+                    if (attid)
+                        $(this).attr("id", attid.replace(/\d+/, newindex));
+                    if (attname)
+                        $(this).attr("name", attname.replace(/\d+/, newindex));
+                    if (attcomboname)
+                        $(this).attr("comboname", attcomboname.replace(/\d+/, newindex));
+
+                    if ($(this).attr("name") == "Menu[" + newindex + "].Remark") {//
+                        $(this).attr("onkeydown", "keydwonc(this)");
+                    }
+                })
+            } else if (event.keyCode == 27) {
+                if ($('#tbCate tbody tr').size() > 1) {
+                    $(et).parents('tr').remove();
+                    //光标返回聚焦
+                    $('#tbCate tbody tr').find('textarea').last().focus();
+                }
+            }
+        };
+
+        var tr = $("#tbCate tbody tr");
+        tr.each(function () {
+            $(this).find('textarea').last().keydown(function (e) {
+                if (e.keyCode == 9) {
+                    var rowNo = $("#tbCate tbody tr").size();
+                    
+                    var index = Number($("#tbCate tbody tr td").find('textarea').last().attr("name").match(/\d+/)[0]);// Number($(this).attr("name").match(/\d+/)[0]);
+                    //新增行，开始
+                    $(temp).appendTo($("#tbCate tbody")).find("a").click(function () {
+                        $(this).parent().parent().remove();//删除整行
+                    }).parent().parent().find("select").combobox({
+                        width: 210, height: 34, editable: true,
+                        url: '/Restaurants/BindListCatebyType',
+                        valueField: 'Id', textField: 'Type',
+                        mode: 'remote', hasDownArrow: false,//是否显示下拉箭头 limitToList: true//只能选下拉框里的数据
+                        onBeforeLoad: function (param) {
+                            if (param == null || param.q == null || param.q.replace(/ /g, '') == '') {
+                                var value = $(this).combobox('getValue');
+                                if (value) {// 修改的时候才会出现q为空而value不为空
+                                    param.id = value;
+                                    return true;
+                                }
+                                return false;
+                            }
+                        }
+                    });//加载新行并渲染
+                    $(this).parent().parent().nextAll().last().find("td:first").html(rowNo + 1);//新增行自增编号
+                    //新增行 最后一行属性改变                    
+                    $(this).parent().parent().nextAll().last().find("input,select,textarea").each(function (i) {
+                        $(this).val("");
+                        //combobox 属性改变
+                        var attid = $(this).attr("id");
+                        var attname = $(this).attr("name");
+                        var attcomboname = $(this).attr("comboname");
+                        var newindex = index + 1;
+                        if (attid)
+                            $(this).attr("id", attid.replace(/\d+/, newindex));
+                        if (attname)
+                            $(this).attr("name", attname.replace(/\d+/, newindex));
+                        if (attcomboname)
+                            $(this).attr("comboname", attcomboname.replace(/\d+/, newindex));
+                        if ($(this).attr("name") == "Menu[" + newindex + "].Remark") {//$(this).attr("type") == "textarea" 绑定事件
+                            $(this).attr("onkeydown", "keydwonc(this)");
+                        }
+                    })
+                }
+            });
+        });
+    });
+    function bindRestaurant() {
+        $("#Restaurant").combobox({
+            url: '/Restaurants/GetRestaurant',
+            valueField: 'Id', textField: 'Name',
+            width: 210, height: 36, panelHeight: "auto",
+            editable: false,
+            onLoadSuccess: function () {  //加载完成后,设置选中第一项
+                var val = $(this).combobox("getData");
+                for (var item in val[0]) {
+                    if (item == "Id") {
+                        $(this).combobox("select", val[0][item]);
+                    }
+                }
+            }
+        });
+
+    }
+
+    //表单提交
+    function submitFrom(pw) {
+        //餐厅名赋值
+        //$("#RestaurantName").val($("#Restaurant").combobox("getText"));
+        //$("#RestaurantId").val($("#Restaurant").combobox("getValue") == undefined ? "" : $("#Restaurant").combobox("getValue"));
+
+        var tr = $("#tbCate tbody tr");
+        //combobox 赋值到表单字段
+        tr.each(function (i) {
+            var sel = $(this).find("select[id^='selCateType']");//匹配前缀名 查找
+            if (sel != null && sel != undefined) {
+                var id = Number(sel.attr("id").match(/\d+/)[0]);
+                $("#Menu_" + id + "__Type").val($("#selCateType" + id).combobox("getText"));
+
+            }
+        });
+        if (tr.length > 0) {
+
+            if (inputIsNull()) {
+                var index = layer.load(2);
+                $.ajax({
+                    url: "/Restaurants/MenuAdd",
+                    data: $('#FromCate').serialize(),
+                    dataType: "json",
+                    type: "POST",
+                    error: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    success: function (data) {
+                        if (data.ReturnCode == 1) {
+                            layer.msg('保存成功！', { icon: 6 });
+                            layer.close(index);
+                            var index1 = parent.layer.getFrameIndex(window.name);
+
+                            setTimeout(function () {
+                                parent.layer.close(index1);
+                            }, 1000);
+                            var id = data.ReturnData.split(',')[0];
+                            var name = data.ReturnData.split(',')[1];
+                            var dpid = data.ReturnData.split(',')[2];
+                            //刷新菜单列表
+                            pw.refreshDetail(id, name, dpid);
+                            //window.location.href = "/Restaurants/CateList?sid="+data.ReturnData;
+                        } else {
+                            $(".alert-warning").fadeIn("slow").children("strong").html(data.ReturnMsg);
+                            closeMsg(5000);
+                            layer.close(layer.index);
+                        }
+                    }
+                });
+                return false;
+            } else {
+                $(".alert-warning").fadeIn("slow").children("strong").html("类型或菜名或价格为空，请填写完整信息");
+                closeMsg(5000);
+                layer.close(index);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function closeMsg(s) {
+        $('.alert-warning').fadeOut(s);
+    }
+    function inputIsNull() {
+        var flg = true;
+        //排除所有后缀id为Unit的文本框
+        $.each($('#tbCate tbody tr td input').not("input[id$='Unit']"), function () {
+            if (!($(this).val())) {
+                flg = false;
+                return;
+            }
+        });
+        return flg;
+    }
+</script>

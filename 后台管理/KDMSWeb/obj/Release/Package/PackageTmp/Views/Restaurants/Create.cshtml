@@ -1,0 +1,174 @@
+﻿@model KDMSModel.Restaurant
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增餐厅</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/layui/layui.all.js"></script>
+</head>
+<body style="overflow-x:hidden;padding:0px;background-color:#f3f3f3;">
+    @*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FromRestaurants" }))
+        {*@
+    <form id="FromRestaurants"  class="form-horizontal">
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @*<h4>Restaurant</h4>*@
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label class="control-label col-xs-4 col-sm-3" for="Name"><span class="text-danger">*</span>餐厅名:</label>
+                    <div class="col-xs-8 col-sm-9">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>           
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label class="control-label col-xs-4 col-sm-3">点评ID:</label>
+                    <div class="col-xs-8 col-sm-9">
+                        @Html.EditorFor(model => model.DPId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DPId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label class="control-label col-xs-4 col-sm-3"><span class="text-danger">*</span>餐厅地址:</label>
+                    <div class="col-xs-8 col-sm-9">
+                        @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form-control"} })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            @*<div class="form-group">
+                    <label class="control-label col-md-2" for="DPId">点评:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DPId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DPId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="Name">餐厅名:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="Address">餐厅地址:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.created, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.created, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.created, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.modified, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.modified, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.modified, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="保存" class="btn btn-w-m btn-primary" />&nbsp;
+                        <input type="button" value="返回" class="btn btn-w-m btn-primary" onclick="window.history.go(-1)" />
+                    </div>
+
+                </div>*@
+        </div>
+    </form>
+    @*}*@
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script>
+        $(function () {
+            //submitSave();
+            $('#Address').css("width", "300px");
+        });
+        function submitSave(pw) {            
+            if ($("#Name").val()=="") {
+                layer.msg('餐厅名不能为空！', { icon: 5, anim: 6});
+                layer.close(index);
+                return;
+            } else if ($("#Address").val() == "") { layer.close(index); layer.msg('餐厅地址不能为空！', { icon: 5, anim: 6 }); return; }
+            //$("#FromRestaurants").validate({
+            //    submitHandler: function (form) {
+            //        $.ajax({
+            //            url: "/Restaurants/Create",
+            //            data: $('#FromRestaurants').serialize(),
+            //            dataType: "json",
+            //            type: "POST",
+            //            error: function (data) {
+            //                alert(JSON.stringify(data));
+            //            },
+            //            success: function (data) {
+            //                if (data.ReturnCode == 1) {
+            //                    layer.msg('保存成功！', { icon: 6 });
+            //                    layer.close(index);
+            //                    var index = parent.layer.getFrameIndex(window.name);
+            //                    parent.layer.close(index);
+            //                } else {
+            //                    layer.msg(data.ReturnMsg, { icon: 5 });
+            //                }
+            //            }
+            //        });
+            //    }
+            //});
+            //$('#FromRestaurants').submit(function () {
+            var index = layer.load(2);
+                $.ajax({
+                    url: "/Restaurants/Create",
+                    data: $('#FromRestaurants').serialize(),
+                    dataType: "json",
+                    type: "POST",
+                    error: function (data) {
+                        alert(JSON.stringify(data));
+                    },
+                    success: function (data) {
+                        if (data.ReturnCode == 1) {
+                            layer.msg('保存成功！', { icon: 6 });                           
+                            layer.close(index);
+                            var index1 = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index1);
+                            pw.refreshResTable();//刷新餐厅列表
+                            //parent.$("#RestaurantsList").bootstrapTable('refresh');                            
+                        } else {                            
+                            layer.msg(data.ReturnMsg, { icon: 5 });
+                            layer.close(index);
+                        }
+                    }
+                });
+                //return false;
+            //});
+
+        }
+    </script>
+</body>
+</html>

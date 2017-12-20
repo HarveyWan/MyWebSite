@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KDMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="DPId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="modified" Type="DateTime" Precision="3" />
+    <Property Name="DPMenuCount" Type="Int32" />
+    <Property Name="Valid" Type="Boolean" />
+    <Property Name="VisibleInApp" Type="Boolean" />
+    <Property Name="EnvImgCount" Type="Int32" />
+    <Property Name="MenuImgCount" Type="Int32" />
+    <Property Name="MenuCount" Type="Int32" />
+    <Property Name="MeanPrice" Type="Int32" />
+    <Property Name="RestaurantEnvInfoId" Type="Guid" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RestaurantMenu">
+    <Key>
+      <PropertyRef Name="RestaurantId" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="Unit" />
+    </Key>
+    <Property Name="RestaurantId" Type="Guid" Nullable="false" />
+    <Property Name="RestaurantName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DPId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="modified" Type="DateTime" Precision="3" />
+    <Property Name="Id" Type="Guid" />
+    <Property Name="DPDishId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DPRecommand" Type="Int32" />
+    <Property Name="DPImgSrc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="KDMSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Restaurant" EntityType="Self.Restaurant" />
+    <EntitySet Name="RestaurantMenu" EntityType="Self.RestaurantMenu" />
+    <EntitySet Name="RestaurantDPMenu" EntityType="KDMSModel.RestaurantDPMenu" />
+    <EntitySet Name="Sys_Menu" EntityType="KDMSModel.Sys_Menu" />
+    <EntitySet Name="Sys_Resources" EntityType="KDMSModel.Sys_Resources" />
+    <EntitySet Name="Sys_RoleResources" EntityType="KDMSModel.Sys_RoleResources" />
+    <EntitySet Name="Sys_UserRole" EntityType="KDMSModel.Sys_UserRole" />
+    <EntitySet Name="Sys_Users" EntityType="KDMSModel.Sys_Users" />
+    <EntitySet Name="Base_KeyValue" EntityType="KDMSModel.Base_KeyValue" />
+    <EntitySet Name="RestaurantEnvInfo" EntityType="KDMSModel.RestaurantEnvInfo" />
+    <EntitySet Name="V_RestaurantEnvInfoKv" EntityType="KDMSModel.V_RestaurantEnvInfoKv" />
+    <EntitySet Name="Sys_Roles" EntityType="KDMSModel.Sys_Roles" />
+    <EntitySet Name="User_Event" EntityType="KDMSModel.User_Event" />
+  </EntityContainer>
+  <EntityType Name="RestaurantDPMenu">
+    <Key>
+      <PropertyRef Name="DPDishId" />
+    </Key>
+    <Property Name="Id" Type="Guid" />
+    <Property Name="RestaurantId" Type="Guid" />
+    <Property Name="RestaurantName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DPId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DPDishId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DPRecommand" Type="Int32" />
+    <Property Name="DPImgSrc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="modified" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Sys_Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" />
+    <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MenuUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AppId" Type="Int32" />
+    <Property Name="ParentID" Type="Int32" Nullable="false" />
+    <Property Name="MenuIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsEnable" Type="Int32" Nullable="false" />
+    <Property Name="IsRoot" Type="Int32" Nullable="false" />
+    <Property Name="Sort" Type="Int32" Nullable="false" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Modifier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Sys_Resources">
+    <Key>
+      <PropertyRef Name="ResId" />
+    </Key>
+    <Property Name="ResId" Type="Int32" Nullable="false" />
+    <Property Name="MenuID" Type="Int32" />
+    <Property Name="ResourcesCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ResourcesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Sys_RoleResources">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ResId" Type="Int32" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Sys_UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Sys_Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="EnglishName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ContactTel" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Base_KeyValue">
+    <Key>
+      <PropertyRef Name="TypeId" />
+      <PropertyRef Name="Value" />
+    </Key>
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="RestaurantEnvInfo">
+    <Key>
+      <PropertyRef Name="RestaurantId" />
+    </Key>
+    <Property Name="RestaurantId" Type="Guid" Nullable="false" />
+    <Property Name="有无分店" Type="Int32" />
+    <Property Name="是否需要走楼梯_无电梯_" Type="Int32" />
+    <Property Name="候位区" Type="Int32" />
+    <Property Name="衣帽间" Type="Int32" />
+    <Property Name="园景_饭店区域内的花园_" Type="Int32" />
+    <Property Name="背景音乐" Type="Int32" />
+    <Property Name="空气清新度" Type="Int32" />
+    <Property Name="服务人员形象" Type="Int32" />
+    <Property Name="邻桌动线有无干扰" Type="Int32" />
+    <Property Name="传菜有无干扰" Type="Int32" />
+    <Property Name="空间感_高度_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="照明" Type="Int32" />
+    <Property Name="采光" Type="Int32" />
+    <Property Name="软装品质" Type="Int32" />
+    <Property Name="硬装质感" Type="Int32" />
+    <Property Name="地域特征" Type="Int32" />
+    <Property Name="文化艺术" Type="Int32" />
+    <Property Name="餐具档次" Type="Int32" />
+    <Property Name="餐具特色" Type="Int32" />
+    <Property Name="菜单呈现" Type="Int32" />
+    <Property Name="桌子舒适度" Type="Int32" />
+    <Property Name="椅子舒适度" Type="Int32" />
+    <Property Name="移动拼桌" Type="Int32" />
+    <Property Name="衣服椅套" Type="Int32" />
+    <Property Name="御冷披肩" Type="Int32" />
+    <Property Name="舞台" Type="Int32" />
+    <Property Name="吧台" Type="Int32" />
+    <Property Name="演奏曲" Type="Int32" />
+    <Property Name="播放区" Type="Int32" />
+    <Property Name="露台" Type="Int32" />
+    <Property Name="露台景观" Type="Int32" />
+    <Property Name="儿童娱乐区" Type="Int32" />
+    <Property Name="厨房" Type="Int32" />
+    <Property Name="包房" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="包房卫生间" Type="Int32" />
+    <Property Name="卫生间距离" Type="Int32" />
+    <Property Name="卫生间室内" Type="Int32" />
+    <Property Name="卫生间洗手台" Type="Int32" />
+    <Property Name="卫生间坐厕间" Type="Int32" />
+    <Property Name="儿童椅" Type="Int32" />
+    <Property Name="儿童餐具" Type="Int32" />
+    <Property Name="可带宠物" Type="Int32" />
+    <Property Name="免费WIFI" Type="Int32" />
+    <Property Name="停车_推荐地_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="停车福利" Type="Int32" />
+    <Property Name="娱乐演艺" Type="Int32" />
+    <Property Name="厨师表演" Type="Int32" />
+    <Property Name="招牌菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="人气菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="新菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="有无隐藏菜单" Type="Int32" />
+    <Property Name="能否接受预订" Type="Int32" />
+    <Property Name="最大单桌人数" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="接待桌数" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="店内面积" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="V_RestaurantEnvInfoKv">
+    <Key>
+      <PropertyRef Name="RestaurantId" />
+    </Key>
+    <Property Name="RestaurantId" Type="Guid" Nullable="false" />
+    <Property Name="RestaurantName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DPId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MeanPrice" Type="Int32" />
+    <Property Name="RestaurantAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="created" Type="DateTime" Precision="3" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="有无分店" Type="Int32" />
+    <Property Name="有无分店_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="是否需要走楼梯_无电梯_" Type="Int32" />
+    <Property Name="是否需要走楼梯_无电梯__desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="候位区" Type="Int32" />
+    <Property Name="候位区_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="衣帽间" Type="Int32" />
+    <Property Name="衣帽间_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="园景_饭店区域内的花园_" Type="Int32" />
+    <Property Name="园景_饭店区域内的花园__desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="背景音乐" Type="Int32" />
+    <Property Name="背景音乐_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="空气清新度" Type="Int32" />
+    <Property Name="空气清新度_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="服务人员形象" Type="Int32" />
+    <Property Name="服务人员形象_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="邻桌动线有无干扰" Type="Int32" />
+    <Property Name="邻桌动线有无干扰_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="传菜有无干扰" Type="Int32" />
+    <Property Name="传菜有无干扰_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="空间感_高度_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="照明" Type="Int32" />
+    <Property Name="照明_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="采光" Type="Int32" />
+    <Property Name="采光_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="软装品质" Type="Int32" />
+    <Property Name="软装品质_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="硬装质感" Type="Int32" />
+    <Property Name="硬装质感_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="地域特征" Type="Int32" />
+    <Property Name="地域特征_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="文化艺术" Type="Int32" />
+    <Property Name="文化艺术_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="餐具档次" Type="Int32" />
+    <Property Name="餐具档次_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="餐具特色" Type="Int32" />
+    <Property Name="餐具特色_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="菜单呈现" Type="Int32" />
+    <Property Name="菜单呈现_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="桌子舒适度" Type="Int32" />
+    <Property Name="桌子舒适度_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="椅子舒适度" Type="Int32" />
+    <Property Name="椅子舒适度_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="移动拼桌" Type="Int32" />
+    <Property Name="移动拼桌_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="衣服椅套" Type="Int32" />
+    <Property Name="衣服椅套_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="御冷披肩" Type="Int32" />
+    <Property Name="御冷披肩_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="舞台" Type="Int32" />
+    <Property Name="舞台_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="吧台" Type="Int32" />
+    <Property Name="吧台_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="演奏曲" Type="Int32" />
+    <Property Name="演奏曲_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="播放区" Type="Int32" />
+    <Property Name="播放区_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="露台" Type="Int32" />
+    <Property Name="露台_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="露台景观" Type="Int32" />
+    <Property Name="露台景观_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="儿童娱乐区" Type="Int32" />
+    <Property Name="儿童娱乐区_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="厨房" Type="Int32" />
+    <Property Name="厨房_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="包房" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="包房_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="包房卫生间" Type="Int32" />
+    <Property Name="包房卫生间_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="卫生间距离" Type="Int32" />
+    <Property Name="卫生间距离_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="卫生间室内" Type="Int32" />
+    <Property Name="卫生间室内_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="卫生间洗手台" Type="Int32" />
+    <Property Name="卫生间洗手台_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="卫生间坐厕间" Type="Int32" />
+    <Property Name="卫生间坐厕间_desc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="儿童椅" Type="Int32" />
+    <Property Name="儿童椅_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="儿童餐具" Type="Int32" />
+    <Property Name="儿童餐具_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="可带宠物" Type="Int32" />
+    <Property Name="可带宠物_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="免费WIFI" Type="Int32" />
+    <Property Name="免费WIFI_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="停车_推荐地_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="停车福利" Type="Int32" />
+    <Property Name="停车福利_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="娱乐演艺" Type="Int32" />
+    <Property Name="娱乐演艺_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="厨师表演" Type="Int32" />
+    <Property Name="厨师表演_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="招牌菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="人气菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="新菜" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="有无隐藏菜单" Type="Int32" />
+    <Property Name="有无隐藏菜单_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="能否接受预订" Type="Int32" />
+    <Property Name="能否接受预订_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="最大单桌人数" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="接待桌数" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="店内面积" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Sys_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="IsApp" Type="Int32" />
+  </EntityType>
+  <EntityType Name="User_Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="EventStatus" Type="Int32" />
+    <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NowOperator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WorkId" Type="Guid" />
+    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

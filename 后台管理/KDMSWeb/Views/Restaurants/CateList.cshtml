@@ -1,0 +1,779 @@
+﻿
+@{
+    Layout = null;
+    HttpCookie userCookie = Request.Cookies["UserInfo"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>开动美食 - 菜单列表</title>
+
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-editable.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+
+    <link href="~/Content/baguettebox.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-editable.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/Scripts/bootstrap-table-editable.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/layui/layui.all.js"></script>
+    <script src="~/Scripts/layui/lay/modules/layer.js"></script>
+    <script src="~/Scripts/baguettebox.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <style>
+        .topbutton {
+            text-align: right;
+            height: 30px;
+            line-height: 30px;
+            /*margin-top: 10px;*/
+        }
+        .topbutton a {
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #MenuList a {
+            border: none;
+        }
+        #RestaurantsList a {
+            border: none;
+        }
+        .table-container .panel-body {
+            padding:3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container body-content" style="width:98%;">
+        @*<div class="topbutton">
+                <a href="/Restaurants/CateRecord/">新增菜单</a>
+            </div>*@
+        <div class="row">
+            @*<div id="login" class="alert alert-warning" style="display:none;margin-bottom:10px;padding: 10px;">
+                <strong>您尚未登录不能录入，请先<a href="/Home/Login">登录</a></strong>
+            </div>
+            <div class="topbutton" style="display:none;">
+                <label id="UserName"></label>&nbsp;&nbsp;
+                <a code="add" href="javascript:AddRestaurants()">新增餐厅</a>
+                <a href="javascript:LogOut()">【注销】</a>
+            </div>*@
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">餐厅</h3>
+                </div>
+                <div class="panel-body">
+                    @*<div class="btn-group hidden-xs" id="Toolbar">
+                            <input type="submit" />
+                        </div>*@
+                    <div class="layui-form" id="Toolbar">
+                        <div class="layui-form-item" style="margin:0px;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="width:90px;">关键字：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="keyWord" placeholder="餐厅名/点评ID/餐厅地址/录入人" style="width:210px;">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="width:100px;">录入时间：</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="CreateTime" placeholder="请选择时间范围">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline" style="width:72px;">
+                                    <button class="layui-btn layui-btn-normal" style="margin-bottom: 5px;" onclick="refreshResTable()">查询</button>
+                                </div>
+                                <div class="layui-input-inline" style="width:auto;" id="addbtn">
+                                    <button code="add" class="layui-btn layui-btn-normal" style="margin-bottom: 5px;" onclick="AddRestaurants()">新增餐厅</button>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                    <table id="RestaurantsList"></table>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="table-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="h3title">菜单数据</a> </li>
+                    <li><a data-toggle="tab" href="#tab-2" aria-expanded="false">餐厅/菜单照片</a></li>
+                    <li><a data-toggle="tab" href="#tab-3" aria-expanded="false">点评菜单数据</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            @*<div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" id="h3title">菜单列表</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table id="MenuList"></table>
+                                    </div>
+                                </div>*@
+                            <table id="MenuList"></table>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <!-- 餐厅、菜单图片列表-->
+                            <div id="RestaurantsImages" class="baguetteBoxOne gallery">
+                            </div>
+                            <div id="MenuImages" class="baguetteBoxOne gallery">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <table id="DPMenuList"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function AddRestaurants() {
+            //layer.open({
+            //    type: 2,
+            //    title: '新增餐厅',
+            //    maxmin: true,
+            //    shadeClose: true, //点击遮罩关闭层
+            //    area : ['800px' , '520px'],
+            //    content: '/Restaurants/Create/'
+            //});
+            var url = "/Restaurants/Create";
+            var tle = "新增餐厅";
+
+            parent.layer.open({
+                type: 2,
+                title: [tle, "background:#1a7bb9;color:#fff;font-weight:600;font-size:16px;"],
+                //title:false,
+                skin: 'layer-ext-seaning',
+                area: ['769px', '450px'],
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    var body = parent.layer.getChildFrame('body', index);
+                    var iframeWin = parent.window[layero.find('iframe')[0]['name']];
+
+                    iframeWin.submitSave(window);
+                }, cancel: function (index) {
+                    parent.layer.close(index);
+                },
+                content: url
+            });
+        }
+        function AddMenu(id, name) {
+            var url = "/Restaurants/CateRecord?rid=" + id + "&rname=" + name;
+            var tle = "菜单录入";// name + "菜单录入";
+
+            parent.layer.open({
+                type: 2,
+                title: [tle, "background:#1a7bb9;color:#fff;font-weight:600;font-size:16px;"],
+                resize: true,//title:false,
+                maxmin: true,
+                skin: 'layer-ext-seaning',
+                area: ['1200px', '600px'],
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    //var body = parent.layer.getChildFrame('body', index);
+                    var iframeWin = parent.window[layero.find('iframe')[0]['name']];
+
+                    iframeWin.submitFrom(window);
+                }, cancel: function (index) {
+                    parent.layer.close(index);
+                },
+                content: encodeURI(encodeURI(url))
+            });
+        }
+
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //日期范围
+            laydate.render({
+                elem: '#CreateTime'
+              , range: true
+            });
+        });
+    </script>
+    <script>
+        var qtm = getQueryString("tm");
+        //alert(q);
+        //var UserName = $.cookie("UserName");
+        var UserName = '@(userCookie != null ? HttpUtility.UrlDecode(userCookie["UserName"]) : "")';
+        var dtArr = [], isadd = false, isdel = false, ismodify = false,isadd1=false;
+        //获取登录人
+        var GetUser = function () {
+            if (!UserName) {
+                //$("#login").show();
+                layer.msg("系统登录超时，请重新登录！", { icon: 5 });
+                setTimeout(function () {
+                    top.location.href = '/Home/Login';
+                }, 1000);
+                return;
+            } else {
+                //$(".topbutton").show();
+                //$('#UserName').html(UserName);
+                $("#addbtn button").checkRole();
+                //获得页面元素权限
+                dtArr = getRoleRs();
+                isadd = isInArray(dtArr, "add");
+                isdel = isInArray(dtArr, "delete");
+                ismodify = isInArray(dtArr, "modify");
+                isadd1 = isInArray(dtArr, "add1");
+            }
+        }
+        //function LogOut() {
+        //    if (confirm("确定要注销吗?"))
+        //        window.location.href = '/Login/LogOut';
+        //}
+        var sid = 0;
+        $(function () {
+            GetUser();
+            LoadRestaurantsList();
+            LoadMenuList(0);
+            LoadDPMenuList();                      
+        });
+        //刷新餐厅列表QueryResList
+        function refreshResTable() {
+            var StartTime = "";
+            var EndTime = "";
+            if ($("#CreateTime").val()) {
+                StartTime = $("#CreateTime").val().split(' - ')[0];
+                EndTime = $("#CreateTime").val().split(' - ')[1];
+            }
+            var opt = {
+                url: "/Restaurants/GetRestaurantList",
+                silent: true,
+                query: {
+                    //id: id
+                    keyWord: $("#keyWord").val(),
+                    startTime: StartTime,
+                    endTime: EndTime
+                }
+            };
+            $('#RestaurantsList').bootstrapTable('refresh', opt);
+        }
+        //餐厅列表
+        function LoadRestaurantsList() {
+            var idx = layer.load();
+            $('#RestaurantsList').bootstrapTable({
+                url: '/Restaurants/GetRestaurantList',
+                method: 'POST',
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                //dataField: "data",
+                cache: false,
+                pageList: [10, 15, 20, 50],
+                //uniqueId: "Id",
+                sortable: true, //是否启用排序
+                //sortOrder: "desc", //排序方式
+                //sortName: "created",
+                pageSize: "10",
+                pageNumber: "1",
+                //"queryParamsType": "limit",
+                queryParamsType: "undefined",
+                //toolbar: '#Toolbar',
+                queryParams: function queryParams(params) {   //设置查询参数
+                    var StartTime = "";
+                    var EndTime = "";
+                    var ctime = qtm == undefined ? "" : qtm;
+                    if (ctime) {
+                        var date = getStartAndEndDate(ctime);
+                        StartTime = date.split('~')[0];
+                        EndTime = date.split('~')[1];
+                    }
+                    if ($("#CreateTime").val()) {
+                        StartTime = $("#CreateTime").val().split(' - ')[0];
+                        EndTime = $("#CreateTime").val().split(' - ')[1];
+                    }
+                    var param = {
+                        pageNo: params.pageNumber,
+                        pageSize: params.pageSize,
+                        //pageSize: params.limit,
+                        keyWord: $("#keyWord").val(),
+                        startTime: StartTime,
+                        endTime: EndTime,
+                        sortName: params.sortName,
+                        sortOrder: params.sortOrder,
+                        ctime: ctime
+                    };
+                    return param;
+                },
+                sidePagination: "server",
+                pagination: true,
+                //responseHandler: responseHandler,
+                height: '480',//height: '285',
+                striped: true,  //隔行变色
+                clickToSelect: true,    //是否启用点击选中行
+                //search: true,
+                //searchOnEnterKey: true,
+                //strictSearch: true,
+                editable: ismodify,// 启用编辑列
+                columns: [
+                    {
+                        field: 'Name', title: '餐厅名', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '餐厅名',
+                            validate: function (value, row, index) {
+                                if (!value) return '餐厅名不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'DPId', title: '点评ID', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '点评ID',
+                            validate: function (value, row, index) {
+                                if (!value) return '点评ID不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Address', title: '餐厅地址', sortable: true
+                        //,
+                        //formatter: function (value, row, index) {
+                        //    if (!value) return "";
+                        //}
+                        ,
+                        editable: {
+                            type: 'textarea',
+                            title: '餐厅地址',
+                            validate: function (value, row, index) {
+                                if (!value) return '餐厅地址不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Creator', title: '录入人', sortable: true                        
+                    },
+                    {
+                        field: 'created', title: '录入时间', sortable: true
+                        ,
+                        formatter: function (value, row, index) {
+                            if (value)
+                                return formatTime(value);
+                            else return "";
+                        }
+                    },
+                    {
+                        title: '操&nbsp;&nbsp;&nbsp;作',
+                        formatter: function (value, row, index) {
+                            var str = '<a style="text-decoration: none;" href="javascript:refreshDetail(\'' + row.Id + '\',\'' + row.Name + '\',\'' + row.DPId + '\')" >菜单明细</a>&nbsp;&nbsp;&nbsp;'
+                            str += '<a target="_blank" style="text-decoration: none;" href="/App/ShopRecord?act=blk_det&rid=' + row.RestaurantEnvInfoId + '" >环境明细</a>&nbsp;&nbsp;&nbsp;'
+                            //str += '<a style="text-decoration: none;" href="javascript:SelMenuImages(\'' + row.Id + '\')">查看图片</a>&nbsp;&nbsp;&nbsp;'========<a style="text-decoration: none;" rid="' + row.Id + '" rname="' + row.Name + '" href="javascript:void(0)" onclick="SelMenuList(this)" >查看明细</a>\
+                            if (isdel)
+                                str += '<a style="text-decoration: none;" href="javascript:DoRestaurantDel(\'' + row.Id + '\')">删除</a>&nbsp;&nbsp;&nbsp;'
+                            if (isadd1)
+                                str += '<a style="text-decoration: none;" href="javascript:AddMenu(\'' + row.Id + '\',\'' + row.Name + '\')">新增菜单</a>';
+                            return str;
+                        }
+                    }
+                ],
+                //onClickRow: function (row, $element) {
+                //    SelMenuList(row.Id);
+                //},
+                onEditableSave: function (field, row, oldValue, $el) {
+                    //异步操作
+                    $.ajax({
+                        type: "post",
+                        url: "/Restaurants/RestaurantEdit",
+                        data: row,
+                        dataType: 'JSON',
+                        success: function (data, status) {
+                            if (data.ReturnCode == 1) {
+                                //alert("保存成功！");
+                            } else {
+                                layer.msg(data.ReturnMsg, { icon: 5 });
+                            }
+                            $("#RestaurantsList").bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            layer.msg('编辑失败', { icon: 5 });
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                }
+            });
+            $("#RestaurantsList").on('load-success.bs.table', function (data) {
+                layer.close(idx);
+            });
+        }
+
+        function responseHandler(res) {
+            if (res) {
+                //var resultStr = $.parseJSON(res);
+                return {
+                    "rows": $.parseJSON(res.data),
+                    "total": res.total
+                };
+            } else {
+                return {
+                    "rows": [],
+                    "total": 0
+                };
+            }
+
+        }
+        //菜单列表
+        function LoadMenuList(id) {
+            $('#MenuList').bootstrapTable({
+                //url: '/Home/GetMenuList',
+                method: 'POST',
+                contentType: "application/x-www-form-urlencoded",
+                cache: false,
+                search: true,
+                uniqueId: "Id",
+                pageSize: "10",
+                pageNumber: "1",
+                pageList: [10, 15, 20, 50],
+                //queryParams: { id: id },
+                queryParamsType: "undefined",
+                //queryParams: function queryParams(params) {   //设置查询参数
+                //    var param = {
+                //        pageNo: params.pageNumber,
+                //        pageSize: params.pageSize,
+                //        id: id
+                //    };
+                //    return param;
+                //},
+                sidePagination: "client",
+                pagination: true,
+                height: '526',
+                striped: true,
+                editable: ismodify,// 启用编辑列
+                columns: [
+                    {
+                        field: 'Type', title: '美食类型', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '类型',
+                            validate: function (value, row, index) {
+                                if (!value) return '类型不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Name', title: '美食名', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '美食名',
+                            validate: function (value, row, index) {
+                                if (!value) return '美食名不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Price', title: '美食价格', sortable: true,
+                        formatter: function (value, row, index) {
+                            if (value)
+                                return parseInt(value);
+                            else "";
+                        },
+                        editable: {
+                            type: 'text',
+                            title: '美食价格',
+                            validate: function (value, row, index) {
+                                if (!value) return '美食价格不能为空'
+                                else if (isNaN(value)) return '请填写数字';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Unit', title: '单位', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '单位'
+                            //,
+                            //validate: function (value, row, index) {
+                            //    if (!value) return '单位不能为空'
+                            //}
+                        }
+                    },
+                    {
+                        field: 'Remark', title: '备注', sortable: true,
+                        editable: {
+                            type: 'text',
+                            title: '备注'
+                            //,
+                            //validate: function (value, row, index) {
+                            //    if (!value) return '备注不能为空'
+                            //}
+                        }
+                    },
+                    {
+                        field: 'created', title: '录入时间', sortable: true,
+                        formatter: function (value, row, index) {
+                            if (value)
+                                return formatTime(value);
+                            else
+                                return "";
+                        }
+                    },
+                    {
+                        title: '操&nbsp;&nbsp;&nbsp;作',
+                        formatter: function (value, row, index) {
+                            var str = "";
+                            if (isdel)
+                                str= '<a style="text-decoration: none;" href="javascript:DoDel(\'' + row.Id + '\',\'' + row.RestaurantId + '\')">删除</a>';
+                            return str;
+                        }
+                    }
+                ],
+                onEditableSave: function (field, row, oldValue, $el) {
+
+                    //异步操作
+                    $.ajax({
+                        type: "post",
+                        url: "/Restaurants/MenuEdit?fld=" + field,
+                        data: row,
+                        dataType: 'JSON',
+                        success: function (data, status) {
+                            if (data.ReturnCode == 1) {
+                                //alert("保存成功！");
+                                //$("#MenuList").bootstrapTable('refresh');
+                            } else {
+                                layer.msg(data.ReturnMsg, { icon: 5 });
+                            }
+                            refreshMenuList(row.RestaurantId);
+                        },
+                        error: function () {
+                            layer.msg('编辑失败', { icon: 5 });
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                }
+            });
+        }
+
+        //点评菜单列表
+        function LoadDPMenuList() {
+            $('#DPMenuList').bootstrapTable({
+                method: 'POST',
+                contentType: "application/x-www-form-urlencoded",
+                cache: false,
+                search: true,
+                uniqueId: "Id",
+                pageSize: "10",
+                pageNumber: "1",
+                pageList: [10, 15, 20, 50],
+                queryParamsType: "undefined",
+                sidePagination: "client",
+                pagination: true,
+                height: '526',
+                striped: true,
+                columns: [
+                    //{field: 'Type', title: '美食类型', sortable: true},
+                    {
+                        field: 'DPId', title: '点评ID', sortable: true
+                    },
+                    {
+                        field: 'Name', title: '美食名', sortable: true
+                    },
+                    {
+                        field: 'Price', title: '美食价格', sortable: true,
+                        formatter: function (value, row, index) {
+                            if (value)
+                                return parseInt(value);
+                            else "";
+                        }
+                    },
+                    {
+                        field: 'DPRecommand', title: '点评推荐数', sortable: true
+                    },
+                    //{
+                    //    field: 'Unit', title: '单位', sortable: true
+                    //},
+                    //{
+                    //    field: 'Remark', title: '备注', sortable: true
+                    //}
+                ]
+            });
+        }
+
+        //查询菜单
+        //function SelMenuList(s) {
+
+        //    if ($(s).text() == "查看明细") {
+        //        $(s).text("隐藏明细");
+        //        $(".table-container").show();
+        //    } else {
+        //        $(s).text("查看明细");
+        //        $(".table-container").hide();
+        //    }
+        //    $("#h3title").html($(s).attr("rname") + "-菜单列表");
+        //    var opt = {
+        //        url: "/Restaurants/GetMenuList",
+        //        silent: true,
+        //        query: {
+        //            id: $(s).attr("rid")
+        //        }
+        //    };
+        //    $('#MenuList').bootstrapTable('refresh', opt);
+        //}
+
+        //刷新餐厅明细
+        function refreshDetail(id, name, dpid) {
+            //var idx = layer.load();
+            $("#h3title").html(name + "-菜单数据");
+            var opt = {
+                url: "/Restaurants/GetMenuList",
+                silent: true,
+                query: {
+                    id: id
+                }
+            };
+            $('#MenuList').bootstrapTable('refresh', opt);
+            //$("#MenuList").on('load-success.bs.table', function (data) {
+            //    layer.close(idx);
+            //});
+            //加载餐厅图片
+            SelMenuImages(dpid);
+            //加载店铺菜单列表
+            refreshDPMenuList(id);
+        }
+        //刷新菜单列表
+        function refreshMenuList(rid) {
+            var opt = {
+                url: "/Restaurants/GetMenuList",
+                silent: true,
+                query: {
+                    id: rid
+                }
+            };
+            $('#MenuList').bootstrapTable('refresh', opt);
+        }
+        //刷新点评菜单列表
+        function refreshDPMenuList(id) {
+            var opt = {
+                url: "/Restaurants/GetDPMenuList",
+                silent: true,
+                query: {
+                    id: id
+                }
+            };
+            $('#DPMenuList').bootstrapTable('refresh', opt);
+        }
+
+        //餐厅删除
+        function DoRestaurantDel(d) {
+            if (confirm("确定要删除吗，餐厅下的菜单、环境数据将全部删除？")) {
+                if (d) {
+                    $.post('/Restaurants/RestaurantDel', { id: d }, function (data) {
+                        if (data.ReturnCode == 1) {
+                            //刷新餐厅，菜单、图片列表
+                            $("#RestaurantsList").bootstrapTable('refresh');
+                            $("#MenuList").bootstrapTable('refresh');
+                            $("#h3title").html("菜单数据");
+                            $('#RestaurantsImages').html("");
+                            $('#MenuImages').html("");
+                        } else {
+                            layer.msg(data.ReturnMsg, { icon: 5 });
+                        }
+                    });
+                } else {
+                    layer.msg("参数传递失败！", { icon: 5 });
+                }
+            } else {
+                return;
+            }
+        }
+        //菜单删除
+        function DoDel(d, rid) {
+            if (confirm("确定要删除吗？")) {
+                if (d) {
+                    $.post('/Restaurants/MenuDel', { id: d }, function (data) {
+                        if (data.ReturnCode == 1) {
+                            refreshMenuList(rid);
+                        } else {
+                            layer.msg(data.ReturnMsg, { icon: 5 });
+                        }
+                    });
+                } else {
+                    layer.msg("参数传递失败！", { icon: 5 });
+                }
+            } else {
+                return;
+            }
+        }
+        //加载餐厅照片
+        function SelMenuImages(d) {
+            if (d) {
+                $.post('/Restaurants/GetMenuImageUrls', { dirNo: d }, function (data) {
+                    if (data.ReturnCode == 1) {
+                        var dtImage = "";
+                        var cdImage = "";
+                        var dtTotal = "", cdTotal = "";
+                        if (data.ReturnData == "{}") {
+                            dtImage = "暂无图片";
+                            cdImage = "暂无图片";
+                        } else {
+                            var imgdata = JSON.parse(data.ReturnData);
+                            var j = 0;
+                            dtTotal = "大堂照片共" + parseInt(imgdata.dt.length) + "张";
+                            if (imgdata.dt) {
+                                for (var i = 0; i < imgdata.dt.length; i++) {
+                                    j += 1;
+                                    var src = imgdata.dt[i].imgsrc;//" + dtTotal + "
+                                    dtImage += "<a href=" + src + " title=\"第" + j + "张\"><img src=" + src + "></a>";
+                                }
+                            }
+                            if (imgdata.cd) {
+                                j = 0;
+                                cdTotal = "菜单照片共" + parseInt(imgdata.cd.length) + "张";
+                                for (var i = 0; i < imgdata.cd.length; i++) {
+                                    j += 1;
+                                    var src = imgdata.cd[i].imgsrc;
+                                    cdImage += "<a href=" + src + " title=\"第" + j + "张\"><img src=" + src + "></a>";
+                                }
+                            }
+
+                        }
+                        $('#RestaurantsImages').html(dtImage + "<p style='height:16px; color:#ccc;font-size:16px;padding-left:10px;'>" + dtTotal + "</p>");
+                        $('#MenuImages').html(cdImage + "<p style='height:16px; color:#ccc;font-size:16px;padding-left:10px;'>" + cdTotal + "</p>");
+                    } else {
+                        layer.msg(data.ReturnMsg, { icon: 5 });
+                    }
+                });
+            }
+            //else {
+            //    layer.msg("餐厅照片参数传递失败！", { icon: 5 });
+            //}
+            //加载图片
+            window.setTimeout(function () {
+                baguetteBox.run('.baguetteBoxOne', {
+                    animation: 'fadeIn',
+                });
+            }, 1000);
+        }
+    </script>    
+</body>
+</html>

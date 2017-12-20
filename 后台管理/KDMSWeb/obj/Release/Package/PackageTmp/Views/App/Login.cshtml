@@ -1,0 +1,40 @@
+﻿
+@{    
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>开动美食 - 用户登录</title>
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+  
+</head>
+<body >
+    <div class="container body-content">
+        <form class="form-signin" role="form" id='LoginForm' action="/App/UserLogin" onsubmit="return checklogin()">
+            <h2 class="form-signin-heading">用户登录</h2>
+            <input type="text" id="LoginName" name="LoginName" class="form-control" placeholder="登录帐号" @*required autofocus*@>
+            <input type="password" name="Password" class="form-control" placeholder="密　码" @*required autofocus*@>
+            @*<label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>*@
+            <div class="alert alert-warning" style="display:none;padding:10px;">
+                <strong></strong>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+
+            @*<p style="margin-bottom:0px; margin-top:6px;">用户注册,忘记密码请联系平台运营方</p>*@
+        </form>
+        <hr />  
+    </div>    
+    
+    <script src="~/Scripts/Login.js"></script>
+</body>
+</html>

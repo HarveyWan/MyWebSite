@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KDMSModelStoreContainer" CdmEntityContainer="KDMSEntities">
+    <EntitySetMapping Name="Restaurant">
+      <EntityTypeMapping TypeName="KDMSModel.Restaurant">
+        <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="RestaurantEnvInfoId" ColumnName="RestaurantEnvInfoId" />
+          <ScalarProperty Name="MeanPrice" ColumnName="MeanPrice" />
+          <ScalarProperty Name="MenuCount" ColumnName="MenuCount" />
+          <ScalarProperty Name="MenuImgCount" ColumnName="MenuImgCount" />
+          <ScalarProperty Name="EnvImgCount" ColumnName="EnvImgCount" />
+          <ScalarProperty Name="VisibleInApp" ColumnName="VisibleInApp" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+          <ScalarProperty Name="DPMenuCount" ColumnName="DPMenuCount" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DPId" ColumnName="DPId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="modified" ColumnName="modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RestaurantMenu">
+      <EntityTypeMapping TypeName="KDMSModel.RestaurantMenu">
+        <MappingFragment StoreEntitySet="RestaurantMenu">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="DPImgSrc" ColumnName="DPImgSrc" />
+          <ScalarProperty Name="DPRecommand" ColumnName="DPRecommand" />
+          <ScalarProperty Name="DPDishId" ColumnName="DPDishId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+          <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+          <ScalarProperty Name="DPId" ColumnName="DPId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="modified" ColumnName="modified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RestaurantDPMenu">
+      <EntityTypeMapping TypeName="KDMSModel.RestaurantDPMenu">
+        <MappingFragment StoreEntitySet="RestaurantDPMenu">
+          <ScalarProperty Name="modified" ColumnName="modified" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="DPImgSrc" ColumnName="DPImgSrc" />
+          <ScalarProperty Name="DPRecommand" ColumnName="DPRecommand" />
+          <ScalarProperty Name="DPDishId" ColumnName="DPDishId" />
+          <ScalarProperty Name="DPId" ColumnName="DPId" />
+          <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+          <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_Menu">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_Menu">
+        <MappingFragment StoreEntitySet="Sys_Menu">
+          <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+          <ScalarProperty Name="Modifier" ColumnName="Modifier" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="Sort" ColumnName="Sort" />
+          <ScalarProperty Name="IsRoot" ColumnName="IsRoot" />
+          <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_Resources">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_Resources">
+        <MappingFragment StoreEntitySet="Sys_Resources">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+          <ScalarProperty Name="ResourcesName" ColumnName="ResourcesName" />
+          <ScalarProperty Name="ResourcesCode" ColumnName="ResourcesCode" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="ResId" ColumnName="ResId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_RoleResources">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_RoleResources">
+        <MappingFragment StoreEntitySet="Sys_RoleResources">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="ResId" ColumnName="ResId" />
+          <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_UserRole">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_UserRole">
+        <MappingFragment StoreEntitySet="Sys_UserRole">
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_Users">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_Users">
+        <MappingFragment StoreEntitySet="Sys_Users">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="ContactTel" ColumnName="ContactTel" />
+          <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Base_KeyValue">
+      <EntityTypeMapping TypeName="KDMSModel.Base_KeyValue">
+        <MappingFragment StoreEntitySet="Base_KeyValue">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RestaurantEnvInfo">
+      <EntityTypeMapping TypeName="KDMSModel.RestaurantEnvInfo">
+        <MappingFragment StoreEntitySet="RestaurantEnvInfo">
+          <ScalarProperty Name="店内面积" ColumnName="店内面积" />
+          <ScalarProperty Name="接待桌数" ColumnName="接待桌数" />
+          <ScalarProperty Name="最大单桌人数" ColumnName="最大单桌人数" />
+          <ScalarProperty Name="能否接受预订" ColumnName="能否接受预订" />
+          <ScalarProperty Name="有无隐藏菜单" ColumnName="有无隐藏菜单" />
+          <ScalarProperty Name="新菜" ColumnName="新菜" />
+          <ScalarProperty Name="人气菜" ColumnName="人气菜" />
+          <ScalarProperty Name="招牌菜" ColumnName="招牌菜" />
+          <ScalarProperty Name="厨师表演" ColumnName="厨师表演" />
+          <ScalarProperty Name="娱乐演艺" ColumnName="娱乐演艺" />
+          <ScalarProperty Name="停车福利" ColumnName="停车福利" />
+          <ScalarProperty Name="停车_推荐地_" ColumnName="停车(推荐地)" />
+          <ScalarProperty Name="免费WIFI" ColumnName="免费WIFI" />
+          <ScalarProperty Name="可带宠物" ColumnName="可带宠物" />
+          <ScalarProperty Name="儿童餐具" ColumnName="儿童餐具" />
+          <ScalarProperty Name="儿童椅" ColumnName="儿童椅" />
+          <ScalarProperty Name="卫生间坐厕间" ColumnName="卫生间坐厕间" />
+          <ScalarProperty Name="卫生间洗手台" ColumnName="卫生间洗手台" />
+          <ScalarProperty Name="卫生间室内" ColumnName="卫生间室内" />
+          <ScalarProperty Name="卫生间距离" ColumnName="卫生间距离" />
+          <ScalarProperty Name="包房卫生间" ColumnName="包房卫生间" />
+          <ScalarProperty Name="包房" ColumnName="包房" />
+          <ScalarProperty Name="厨房" ColumnName="厨房" />
+          <ScalarProperty Name="儿童娱乐区" ColumnName="儿童娱乐区" />
+          <ScalarProperty Name="露台景观" ColumnName="露台景观" />
+          <ScalarProperty Name="露台" ColumnName="露台" />
+          <ScalarProperty Name="播放区" ColumnName="播放区" />
+          <ScalarProperty Name="演奏曲" ColumnName="演奏曲" />
+          <ScalarProperty Name="吧台" ColumnName="吧台" />
+          <ScalarProperty Name="舞台" ColumnName="舞台" />
+          <ScalarProperty Name="御冷披肩" ColumnName="御冷披肩" />
+          <ScalarProperty Name="衣服椅套" ColumnName="衣服椅套" />
+          <ScalarProperty Name="移动拼桌" ColumnName="移动拼桌" />
+          <ScalarProperty Name="椅子舒适度" ColumnName="椅子舒适度" />
+          <ScalarProperty Name="桌子舒适度" ColumnName="桌子舒适度" />
+          <ScalarProperty Name="菜单呈现" ColumnName="菜单呈现" />
+          <ScalarProperty Name="餐具特色" ColumnName="餐具特色" />
+          <ScalarProperty Name="餐具档次" ColumnName="餐具档次" />
+          <ScalarProperty Name="文化艺术" ColumnName="文化艺术" />
+          <ScalarProperty Name="地域特征" ColumnName="地域特征" />
+          <ScalarProperty Name="硬装质感" ColumnName="硬装质感" />
+          <ScalarProperty Name="软装品质" ColumnName="软装品质" />
+          <ScalarProperty Name="采光" ColumnName="采光" />
+          <ScalarProperty Name="照明" ColumnName="照明" />
+          <ScalarProperty Name="空间感_高度_" ColumnName="空间感(高度)" />
+          <ScalarProperty Name="传菜有无干扰" ColumnName="传菜有无干扰" />
+          <ScalarProperty Name="邻桌动线有无干扰" ColumnName="邻桌动线有无干扰" />
+          <ScalarProperty Name="服务人员形象" ColumnName="服务人员形象" />
+          <ScalarProperty Name="空气清新度" ColumnName="空气清新度" />
+          <ScalarProperty Name="背景音乐" ColumnName="背景音乐" />
+          <ScalarProperty Name="园景_饭店区域内的花园_" ColumnName="园景(饭店区域内的花园)" />
+          <ScalarProperty Name="衣帽间" ColumnName="衣帽间" />
+          <ScalarProperty Name="候位区" ColumnName="候位区" />
+          <ScalarProperty Name="是否需要走楼梯_无电梯_" ColumnName="是否需要走楼梯(无电梯)" />
+          <ScalarProperty Name="有无分店" ColumnName="有无分店" />
+          <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_RestaurantEnvInfoKv">
+      <EntityTypeMapping TypeName="KDMSModel.V_RestaurantEnvInfoKv">
+        <MappingFragment StoreEntitySet="V_RestaurantEnvInfoKv">
+          <ScalarProperty Name="店内面积" ColumnName="店内面积" />
+          <ScalarProperty Name="接待桌数" ColumnName="接待桌数" />
+          <ScalarProperty Name="最大单桌人数" ColumnName="最大单桌人数" />
+          <ScalarProperty Name="能否接受预订_desc" ColumnName="能否接受预订_desc" />
+          <ScalarProperty Name="能否接受预订" ColumnName="能否接受预订" />
+          <ScalarProperty Name="有无隐藏菜单_desc" ColumnName="有无隐藏菜单_desc" />
+          <ScalarProperty Name="有无隐藏菜单" ColumnName="有无隐藏菜单" />
+          <ScalarProperty Name="新菜" ColumnName="新菜" />
+          <ScalarProperty Name="人气菜" ColumnName="人气菜" />
+          <ScalarProperty Name="招牌菜" ColumnName="招牌菜" />
+          <ScalarProperty Name="厨师表演_desc" ColumnName="厨师表演_desc" />
+          <ScalarProperty Name="厨师表演" ColumnName="厨师表演" />
+          <ScalarProperty Name="娱乐演艺_desc" ColumnName="娱乐演艺_desc" />
+          <ScalarProperty Name="娱乐演艺" ColumnName="娱乐演艺" />
+          <ScalarProperty Name="停车福利_desc" ColumnName="停车福利_desc" />
+          <ScalarProperty Name="停车福利" ColumnName="停车福利" />
+          <ScalarProperty Name="停车_推荐地_" ColumnName="停车(推荐地)" />
+          <ScalarProperty Name="免费WIFI_desc" ColumnName="免费WIFI_desc" />
+          <ScalarProperty Name="免费WIFI" ColumnName="免费WIFI" />
+          <ScalarProperty Name="可带宠物_desc" ColumnName="可带宠物_desc" />
+          <ScalarProperty Name="可带宠物" ColumnName="可带宠物" />
+          <ScalarProperty Name="儿童餐具_desc" ColumnName="儿童餐具_desc" />
+          <ScalarProperty Name="儿童餐具" ColumnName="儿童餐具" />
+          <ScalarProperty Name="儿童椅_desc" ColumnName="儿童椅_desc" />
+          <ScalarProperty Name="儿童椅" ColumnName="儿童椅" />
+          <ScalarProperty Name="卫生间坐厕间_desc" ColumnName="卫生间坐厕间_desc" />
+          <ScalarProperty Name="卫生间坐厕间" ColumnName="卫生间坐厕间" />
+          <ScalarProperty Name="卫生间洗手台_desc" ColumnName="卫生间洗手台_desc" />
+          <ScalarProperty Name="卫生间洗手台" ColumnName="卫生间洗手台" />
+          <ScalarProperty Name="卫生间室内_desc" ColumnName="卫生间室内_desc" />
+          <ScalarProperty Name="卫生间室内" ColumnName="卫生间室内" />
+          <ScalarProperty Name="卫生间距离_desc" ColumnName="卫生间距离_desc" />
+          <ScalarProperty Name="卫生间距离" ColumnName="卫生间距离" />
+          <ScalarProperty Name="包房卫生间_desc" ColumnName="包房卫生间_desc" />
+          <ScalarProperty Name="包房卫生间" ColumnName="包房卫生间" />
+          <ScalarProperty Name="包房_desc" ColumnName="包房_desc" />
+          <ScalarProperty Name="包房" ColumnName="包房" />
+          <ScalarProperty Name="厨房_desc" ColumnName="厨房_desc" />
+          <ScalarProperty Name="厨房" ColumnName="厨房" />
+          <ScalarProperty Name="儿童娱乐区_desc" ColumnName="儿童娱乐区_desc" />
+          <ScalarProperty Name="儿童娱乐区" ColumnName="儿童娱乐区" />
+          <ScalarProperty Name="露台景观_desc" ColumnName="露台景观_desc" />
+          <ScalarProperty Name="露台景观" ColumnName="露台景观" />
+          <ScalarProperty Name="露台_desc" ColumnName="露台_desc" />
+          <ScalarProperty Name="露台" ColumnName="露台" />
+          <ScalarProperty Name="播放区_desc" ColumnName="播放区_desc" />
+          <ScalarProperty Name="播放区" ColumnName="播放区" />
+          <ScalarProperty Name="演奏曲_desc" ColumnName="演奏曲_desc" />
+          <ScalarProperty Name="演奏曲" ColumnName="演奏曲" />
+          <ScalarProperty Name="吧台_desc" ColumnName="吧台_desc" />
+          <ScalarProperty Name="吧台" ColumnName="吧台" />
+          <ScalarProperty Name="舞台_desc" ColumnName="舞台_desc" />
+          <ScalarProperty Name="舞台" ColumnName="舞台" />
+          <ScalarProperty Name="御冷披肩_desc" ColumnName="御冷披肩_desc" />
+          <ScalarProperty Name="御冷披肩" ColumnName="御冷披肩" />
+          <ScalarProperty Name="衣服椅套_desc" ColumnName="衣服椅套_desc" />
+          <ScalarProperty Name="衣服椅套" ColumnName="衣服椅套" />
+          <ScalarProperty Name="移动拼桌_desc" ColumnName="移动拼桌_desc" />
+          <ScalarProperty Name="移动拼桌" ColumnName="移动拼桌" />
+          <ScalarProperty Name="椅子舒适度_desc" ColumnName="椅子舒适度_desc" />
+          <ScalarProperty Name="椅子舒适度" ColumnName="椅子舒适度" />
+          <ScalarProperty Name="桌子舒适度_desc" ColumnName="桌子舒适度_desc" />
+          <ScalarProperty Name="桌子舒适度" ColumnName="桌子舒适度" />
+          <ScalarProperty Name="菜单呈现_desc" ColumnName="菜单呈现_desc" />
+          <ScalarProperty Name="菜单呈现" ColumnName="菜单呈现" />
+          <ScalarProperty Name="餐具特色_desc" ColumnName="餐具特色_desc" />
+          <ScalarProperty Name="餐具特色" ColumnName="餐具特色" />
+          <ScalarProperty Name="餐具档次_desc" ColumnName="餐具档次_desc" />
+          <ScalarProperty Name="餐具档次" ColumnName="餐具档次" />
+          <ScalarProperty Name="文化艺术_desc" ColumnName="文化艺术_desc" />
+          <ScalarProperty Name="文化艺术" ColumnName="文化艺术" />
+          <ScalarProperty Name="地域特征_desc" ColumnName="地域特征_desc" />
+          <ScalarProperty Name="地域特征" ColumnName="地域特征" />
+          <ScalarProperty Name="硬装质感_desc" ColumnName="硬装质感_desc" />
+          <ScalarProperty Name="硬装质感" ColumnName="硬装质感" />
+          <ScalarProperty Name="软装品质_desc" ColumnName="软装品质_desc" />
+          <ScalarProperty Name="软装品质" ColumnName="软装品质" />
+          <ScalarProperty Name="采光_desc" ColumnName="采光_desc" />
+          <ScalarProperty Name="采光" ColumnName="采光" />
+          <ScalarProperty Name="照明_desc" ColumnName="照明_desc" />
+          <ScalarProperty Name="照明" ColumnName="照明" />
+          <ScalarProperty Name="空间感_高度_" ColumnName="空间感(高度)" />
+          <ScalarProperty Name="传菜有无干扰_desc" ColumnName="传菜有无干扰_desc" />
+          <ScalarProperty Name="传菜有无干扰" ColumnName="传菜有无干扰" />
+          <ScalarProperty Name="邻桌动线有无干扰_desc" ColumnName="邻桌动线有无干扰_desc" />
+          <ScalarProperty Name="邻桌动线有无干扰" ColumnName="邻桌动线有无干扰" />
+          <ScalarProperty Name="服务人员形象_desc" ColumnName="服务人员形象_desc" />
+          <ScalarProperty Name="服务人员形象" ColumnName="服务人员形象" />
+          <ScalarProperty Name="空气清新度_desc" ColumnName="空气清新度_desc" />
+          <ScalarProperty Name="空气清新度" ColumnName="空气清新度" />
+          <ScalarProperty Name="背景音乐_desc" ColumnName="背景音乐_desc" />
+          <ScalarProperty Name="背景音乐" ColumnName="背景音乐" />
+          <ScalarProperty Name="园景_饭店区域内的花园__desc" ColumnName="园景(饭店区域内的花园)_desc" />
+          <ScalarProperty Name="园景_饭店区域内的花园_" ColumnName="园景(饭店区域内的花园)" />
+          <ScalarProperty Name="衣帽间_desc" ColumnName="衣帽间_desc" />
+          <ScalarProperty Name="衣帽间" ColumnName="衣帽间" />
+          <ScalarProperty Name="候位区_desc" ColumnName="候位区_desc" />
+          <ScalarProperty Name="候位区" ColumnName="候位区" />
+          <ScalarProperty Name="是否需要走楼梯_无电梯__desc" ColumnName="是否需要走楼梯(无电梯)_desc" />
+          <ScalarProperty Name="是否需要走楼梯_无电梯_" ColumnName="是否需要走楼梯(无电梯)" />
+          <ScalarProperty Name="有无分店_desc" ColumnName="有无分店_desc" />
+          <ScalarProperty Name="有无分店" ColumnName="有无分店" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="RestaurantAddress" ColumnName="RestaurantAddress" />
+          <ScalarProperty Name="MeanPrice" ColumnName="MeanPrice" />
+          <ScalarProperty Name="DPId" ColumnName="DPId" />
+          <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+          <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_Roles">
+      <EntityTypeMapping TypeName="KDMSModel.Sys_Roles">
+        <MappingFragment StoreEntitySet="Sys_Roles">
+          <ScalarProperty Name="IsApp" ColumnName="IsApp" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleCode" ColumnName="RoleCode" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

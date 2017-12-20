@@ -1,0 +1,218 @@
+﻿
+@{
+    Layout = null;
+    HttpCookie userCookie = Request.Cookies["UserInfo"];
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>开动美食 - 探店档案</title>
+
+    <link href="~/Scripts/jquery-weui/lib/weui.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-weui/css/jquery-weui.css" rel="stylesheet" />
+    <link href="/Content/app.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header>
+        <h3 class="demos-title">探店档案</h3>
+    </header>
+    <div id="btbback" style="margin-top:22px;padding-left:6px;">
+        <a href="javascript:window.history.go(-1);" class="weui-btn weui-btn_mini weui-btn_primary">&lt; 返回</a>
+    </div>
+    <div id="UserName" class="weui-cells__title" style="font-size:16px;"></div>
+    <form id="FormShop" >
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label"><span style="color:red;">*</span>店名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" placeholder="请输入店名" required="required" id="RestaurantName" name="RestaurantName">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">大众点评ID</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" id="DPId" name="DPId">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label"><span style="color:red;">*</span>人均价格</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="MeanPrice" name="MeanPrice" type="number" pattern="[0-9]*" placeholder="请输入人均价格">
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label"><span style="color:red;">*</span>地址</label></div>
+                <div class="weui-cell__bd">
+                    <textarea id="Address" name="Address" class="weui-textarea" placeholder="请输入地址" > </textarea>
+                </div>
+            </div>
+
+            @*<div class="weui-cells__title">是否有分店</div>
+            <div class="weui-cells weui-cells_radio">
+                <label class="weui-cell weui-check__label" for="x11">
+                    <div class="weui-cell__bd">
+                        <p>是</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <input type="radio" class="weui-check" name="radio1" id="x11">
+                        <span class="weui-icon-checked"></span>
+                    </div>
+                </label>
+                <label class="weui-cell weui-check__label" for="x12" onclick="shwtxt()">
+                    <div class="weui-cell__bd">
+                        <p>否</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <input type="radio" name="radio1" class="weui-check" id="x12">
+                        <span class="weui-icon-checked"></span>
+                    </div>
+                    
+                </label>                
+            </div>*@
+            
+        </div>
+
+        <div class="weui-btn-area">
+            <input type="hidden" id="hidArr" />
+            <input type="hidden" id="hidResid" name="Resid" />
+            @*<a href="javascript:ok();" class="weui-btn weui-btn_primary">保存</a>*@
+            <input type="button" onclick="submitSave()" value="保存" class="weui-btn weui-btn_primary" />
+        </div>       
+    </form>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <script src="~/Scripts/jquery-weui/lib/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-weui/lib/fastclick.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/ShopSetting.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script>
+        
+        var UserName = '@(userCookie != null ? HttpUtility.UrlDecode(userCookie["UserName"]) : "")';
+        var appOpt = '@(userCookie != null ? userCookie["IsApp"] : "")';
+        var resid = getQueryString("rid");
+        var action = getQueryString("act");        
+        //获取登录人
+        var GetUser = function () {
+            if (!UserName) {
+                goAppPage("用户登录超时，请重新登录！", "/App/Login", 1000);
+                return;
+            }
+            //else {
+            //    $("#Usertxt").html(UserName + '&nbsp;|&nbsp;<a href="/App/LogOut"><i class="iconfont icon-esc"></i>退出</a>');
+            //}
+        }
+        $(function () {
+            GetUser();
+            FastClick.attach(document.body);
+            SetFormHtml();
+            if (action != "add" && action) {
+                //修改，查看数据
+                if (resid && resid != "null") {
+                    $("#hidResid").val(resid);
+                    loadShopData(resid);
+                } else {
+                    $.toptip('暂无数据');
+                }
+            } else {
+                if (appOpt == 0) {
+                    goAppPage("您无权访问该页面！", "/App/Login", 3000,true);
+                    //$("#Usertxt,#btnadd").remove();
+                }
+            }
+            if (action == "detail") {
+                $("form input").attr("disabled", "disabled");
+                $("form textarea").attr("readonly", "readonly");
+                $(".weui-btn-area").remove();        
+            } else if (action == "blk_det") {                
+                $("form input").attr("disabled", "disabled");
+                $("form textarea").attr("readonly", "readonly");
+                $("#btbback").remove(); //删除返回按钮
+                $(".weui-btn-area").remove(); //删除保存按钮                
+            }
+            
+        });        
+    </script>   
+    <script src="~/Scripts/jquery-weui/js/jquery-weui.js"></script>
+
+    <script type="text/javascript">
+        //$('input[type="radio"]').click(function () {
+        //    $(this).attr('id');
+        //});
+        //function ok() {            
+        //    var val = $('input[name="服务人员形象"]:checked').val();
+        //    $.alert(val);
+        //    //$.alert($('#selCateType option:selected').text());
+            
+        //}
+        
+        //数据提交
+        function submitSave() {                                  
+            //setTimeout(function () { $.hideLoading(); }, 3000);
+            if ($('#RestaurantName').val() == "") {
+                $.toptip('请输入菜名');                
+            }
+            else if ($('#MeanPrice').val() == "") {
+                $.toptip('请输入人均价格');
+            } else if ($('#Address').val() == " ") {
+                $.toptip('请输入地址');
+            } else {
+                $.showLoading("保存中...");
+                if (action=="edit") {
+                    $.ajax({
+                        url: "/App/UpdateShopRecord",
+                        data: $('#FormShop').serialize(),
+                        dataType: "json",
+                        type: "POST",
+                        error: function (data) {
+                            $.toptip(JSON.stringify(data));
+                        },
+                        success: function (data) {
+                            $.hideLoading();
+                            if (data.ReturnCode == 1) {
+                                //$.toptip('保存成功', 'success');
+                                $.toast("保存成功");
+                                setTimeout(function () {
+                                    window.location.href = "/App/ShopList";
+                                }, 1000);
+                                
+                            } else {
+                                $.toptip(data.ReturnMsg);
+                            }
+                        }
+                    });
+                } else  {
+                    $.ajax({
+                        url: "/App/AddShopRecord",
+                        data: $('#FormShop').serialize(),
+                        dataType: "json",
+                        type: "POST",
+                        error: function (data) {
+                            $.toptip(JSON.stringify(data));
+                        },
+                        success: function (data) {
+                            $.hideLoading();
+                            if (data.ReturnCode == 1) {
+                                $.toast("保存成功");
+                                setTimeout(function () {
+                                    window.location.href = "/App/ShopList";
+                                }, 1000);
+                            } else {
+                                $.toptip(data.ReturnMsg);
+                            }
+                        }
+                    });
+                }
+            }         
+        }
+    </script>
+</body>
+</html>

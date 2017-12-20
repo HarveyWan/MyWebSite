@@ -1,0 +1,164 @@
+﻿
+@{    
+    Layout = null;
+    HttpCookie userCookie = Request.Cookies["UserInfo"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>开动美食 - 系统首页</title>
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />*@
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <style>
+        .ht-box {
+            cursor:pointer;
+        }
+        tr td:not(:nth-child(0)),
+        tr th:not(:nth-child(0)) {
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <!--头部信息-->
+        <div class="layui-header">
+            <div class="layui-logo"></div>
+            <div class="ht-console">
+                <div class="ht-user">
+                    @*<img src="http://q.qlogo.cn/qqapp/101378303/99EAF1CBCABC45019CAFAC4DDA80A0E6/40">*@
+                    <a class="ht-user-name"></a>
+                </div>
+            </div>           
+            @*<ul class="layui-nav layui-layout-left">
+                    <li class="layui-nav-item"><a href="">控制台</a></li>
+                    <li class="layui-nav-item"><a href="">商品管理</a></li>
+                    <li class="layui-nav-item"><a href="">用户</a></li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">其它系统</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">邮件管理</a></dd>
+                            <dd><a href="">消息管理</a></dd>
+                            <dd><a href="">授权管理</a></dd>
+                        </dl>
+                    </li>
+                </ul>*@           
+            <ul class="ht-nav">  
+                <li class="ht-nav-item">
+                    <a href="javascript:;" onclick="setPassWord()" id="individuation"><i class="fa fa-edit fa-fw" style="padding-right:5px;"></i>修改密码</a>
+                </li>                            
+                <li class="ht-nav-item">
+                    <a href="/Login/LogOut"><i class="fa fa-power-off fa-fw"></i>注销</a>
+                </li>
+            </ul>
+        </div>
+        <!--左侧导航信息-->
+        <div class="layui-side">
+            <div class="layui-side-scroll">                
+                <ul class="layui-nav layui-nav-tree" lay-filter="leftnav">
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;"><i class="fa fa-home"></i>首页</a>
+                    </li>
+                   
+                    @*<li class="layui-nav-item">
+                        <a href="javascript:;">餐厅管理</a>
+                        <dl class="layui-nav-child">                            
+                            <dd><a href="javascript:;" data-url="/Restaurants/CateList" data-id="1" title="菜单录入">菜单录入</a></dd>                            
+                        </dl>
+                    </li>*@
+                   
+                </ul>
+            </div>
+        </div>
+        <!--收起导航-->
+        <div class="layui-side-hide layui-bg-cyan">
+            <i class="fa fa-long-arrow-left fa-fw"></i>收起
+        </div>
+        <!--主体内容-->
+        <div class="layui-body">
+            <div style="margin:0;position:absolute;top:4px;bottom:0px;width:100%;" class="layui-tab layui-tab-brief" lay-filter="tab" lay-allowclose="true">
+                <ul class="layui-tab-title">
+                    <li lay-id="0" class="layui-this">首页</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <fieldset class="layui-elem-field layui-field-title">
+                            <legend>餐厅统计</legend>
+                            <div class="layui-field-box">
+                                <div style="display: inline-block; width: 100%;">
+                                    <div class="ht-box layui-bg-blue" tm="DAY">
+                                        <p>@ViewBag.DayTotal</p>
+                                        <p>今日录入总数</p>
+                                    </div>
+                                    <div class="ht-box layui-bg-red" tm="WEEK">
+                                        <p>@ViewBag.WeekTotal</p>
+                                        <p>本周录入总数</p>
+                                    </div>
+                                    <div class="ht-box layui-bg-green" tm="MONTH">
+                                        <p>@ViewBag.MonthTotal</p>
+                                        <p>本月录入总数</p>
+                                    </div>
+                                    <div class="ht-box layui-bg-orange" tm="YEAR">
+                                        <p>@ViewBag.YearTotal</p>
+                                        <p>今年录入总数</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="layui-elem-field layui-field-title">
+                            <legend>今日录入统计</legend>
+                            <table id="CateTotalTable" class="layui-table">
+                                <thead>
+                                    <tr>
+                                        <th>录入人</th>
+                                        <th>餐厅名</th>
+                                        <th>菜单总数</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部信息-->
+        @*<div class="layui-footer">           
+            © layui.com - 底部固定区域
+        </div>*@
+    </div>
+    <script src="~/Scripts/layui/layui.js"></script>
+    @*<script src="~/Scripts/main.js"></script>*@
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>*@
+    <script src="~/Scripts/index.js"></script>
+    <script> 
+        var UserName = '@(userCookie != null ? HttpUtility.UrlDecode(userCookie["UserName"]) : "")';              
+        //获取登录人
+        var GetUser = function () {
+            if (!UserName) {                
+                alert("系统登录超时，请重新登录！");
+                top.location.href = '/Home/Login';               
+                return;
+            } else {
+                $(".ht-user-name").html(UserName);
+            }
+        }
+        layui.use('element', function () {
+            var element = layui.element;
+        });        
+        layui.config({
+            base: '../../Scripts/'
+        }).use('main');
+    </script>
+</body>
+</html>

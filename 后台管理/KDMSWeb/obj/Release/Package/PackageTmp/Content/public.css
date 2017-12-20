@@ -1,0 +1,62 @@
+html,body{font-size:12px;background-color:#FFF;cursor:default;font-family:"Arial","宋体";}
+body,div,p,img,table,tr,th,td,ul,li,ol,h1,h2,h3,h4,h5,h6,form,pre{margin:0px;padding:0px;border:none;}
+a, a:hover{text-decoration: none;}
+pre{white-space:pre-wrap; white-space:-moz-pre-wrap; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word;}
+
+/* 字体颜色 */
+.black{color:black;}
+.red{color:red;}
+.blue{color:blue;}
+.l_blue{color:#217EF5;}
+.green{color:green;}
+.d_green{color:#319D0A;}
+.gray{color:gray;}
+.purple{color:#B41AE5;}
+
+/* 字体大小 */
+.f12{font-size:12px;}
+.f14{font-size:14px;}
+.f_num{font-family:Verdana,Arial,Helvetica,sans-serif;}
+
+/* 字体布局 */
+.fb{font-weight:bold;}
+.fn{font-weight:normal;}
+.tleft{text-align:left;}
+.tcenter{text-align:center;}
+.tright{text-align:right;}
+.over_font{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}  /* 当行省略号 */
+.break_font{word-wrap:break-word;word-break:break-all}  /* 强制换行 */
+.nowrap_font{white-space:nowrap;} /* 强制不换行 */
+
+/* 对齐 */
+.middle{vertical-align:middle}
+
+/* 布局 */
+.flow{overflow:hidden;_zoom:1;}
+.fl{float:left;}
+.fr{float:right;}
+.span{padding:5px 12px;}
+.hide{display:none;}
+.block{display:block;}
+.bcenter{display:block;margin:0px auto;}
+.v_hide{visibility:hidden}
+
+/* 定位 */
+.relative{position:relative;}
+
+/* 阴影、圆角 IE8之内不能显示 */
+.shadow{-webkit-box-shadow: 2px 2px 2px #CDCDCD;box-shadow: 2px 2px 2px #CDCDCD;-moz-box-shadow: 2px 2px 2px #CDCDCD;}
+.radius{border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;}
+
+/* 超链接样式 */
+.under:hover{text-decoration: underline;}
+.link{color:#2C5AF5;}
+.link:hover{color:#FF8400;text-decoration: underline;}
+.o_link{color:#FF8400;}
+.o_link:hover{text-decoration: underline;}
+.block_link{width:100%;display:block;text-align:center;}
+
+h2{height:40px;line-height:40px;font-size:14px;font-weight:bold;}
+
+/* 固定样式 */
+.bd{width:1000px;margin:0px auto;}

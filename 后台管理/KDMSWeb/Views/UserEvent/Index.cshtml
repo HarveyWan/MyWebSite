@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = null;
+    HttpCookie userCookie = Request.Cookies["UserInfo"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>开动美食 - 流程列表</title>
+
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-editable.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+
+    <link href="~/Content/baguettebox.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-editable.min.js"></script>
+
+    <script src="~/Scripts/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/Scripts/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="~/Scripts/bootstrap-table-editable.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/layui/layui.all.js"></script>
+    <script src="~/Scripts/layui/lay/modules/layer.js"></script>
+    <script src="~/Scripts/baguettebox.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <style>
+        .topbutton {
+            text-align: right;
+            height: 30px;
+            line-height: 30px;
+            /*margin-top: 10px;*/
+        }
+
+            .topbutton a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+        #MenuList a {
+            border: none;
+        }
+
+        #RestaurantsList a {
+            border: none;
+        }
+
+        .table-container .panel-body {
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+         
+        <table id="tbflow">
+        </table>
+    </div>
+    <script>
+        function AddMenu(id, name) {
+            var url = "/Restaurants/CateRecord?rid=" + id + "&rname=" + name;
+            var tle = "新增要求";// name + "菜单录入";
+
+            parent.layer.open({
+                type: 2,
+                title: [tle, "background:#1a7bb9;color:#fff;font-weight:600;font-size:16px;"],
+                resize: true,//title:false,
+                maxmin: true,
+                skin: 'layer-ext-seaning',
+                area: ['736px', '450px'],
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    //var body = parent.layer.getChildFrame('body', index);
+                    var iframeWin = parent.window[layero.find('iframe')[0]['name']];
+
+                    iframeWin.submitFrom(window);
+                }, cancel: function (index) {
+                    parent.layer.close(index);
+                },
+                content: encodeURI(encodeURI(url))
+            });
+        }
+    </script>
+</body>
+</html>

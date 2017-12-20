@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="596fc106a31441edbaf1ff00d08f0be9" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="KDMSModel.Restaurant" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDMSModel.RestaurantMenu" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KDMSModel.RestaurantDPMenu" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_Menu" Width="1.5" PointX="9.875" PointY="1" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_Resources" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_RoleResources" Width="1.5" PointX="12.5" PointY="1.625" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_UserRole" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_Users" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="KDMSModel.Base_KeyValue" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="KDMSModel.RestaurantEnvInfo" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="KDMSModel.V_RestaurantEnvInfoKv" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KDMSModel.Sys_Roles" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="KDMSModel.User_Event" Width="1.5" PointX="9.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
